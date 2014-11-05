@@ -18,6 +18,9 @@
 	NSDictionary *currentAlbumData;
 	int currentAlbumIndex;
 	HorizontalScroller *scroller;
+	UIToolbar *toolbar;
+	// We will use this array as a stack to push and pop operation for the undo option
+	NSMutableArray *undoStack;
 }
 
 @end
@@ -26,6 +29,25 @@
 
 - (void)viewDidLoad{
 	[super viewDidLoad];
+	
+	toolbar = [[UIToolbar alloc] init];
+	UIBarButtonItem *undoItem =
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo
+																								target:self
+																								action:@selector(undoAction)];
+	undoItem.enabled = NO;
+	UIBarButtonItem *space =
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+																									target:nil
+																									action:nil];
+	UIBarButtonItem *delete =
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
+																									target:self
+																									action:@selector(deleteAlbum)];
+	[toolbar setItems:@[undoItem,space,delete]];
+	[self.view addSubview:toolbar];
+	undoStack = [[NSMutableArray alloc] init];
+	
 	// 1 Change the background color to a nice navy blue color.
 	self.view.backgroundColor = [UIColor colorWithRed:0.76f green:0.81f blue:0.87f alpha:1];
 	currentAlbumIndex = 0;
@@ -56,6 +78,11 @@
 	[self showDataForAlbumAtIndex:currentAlbumIndex];
 	
 	 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(saveCurrentState) name:UIApplicationDidEnterBackgroundNotification object:nil];
+}
+
+- (void)viewWillLayoutSubviews{
+	toolbar.frame = CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44);
+	dataTable.frame = CGRectMake(0, 130, self.view.frame.size.width, self.view.frame.size.height - 200);
 }
 
 - (void)showDataForAlbumAtIndex:(int)albumIndex{
@@ -133,6 +160,60 @@
 }
 - (void)dealloc{
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)addAlbum:(Album*)album atIndex:(int)index{
+	[[LibraryAPI sharedInstance] addAlbum:album atIndex:index];
+	currentAlbumIndex = index;
+	[self reloadScroller];
+}
+
+- (void)deleteAlbum{
+	// 1 Get the album to delete.
+	Album *deletedAlbum = allAlbums[currentAlbumIndex];
+ 
+	// 2 Define an object of type NSMethodSignature to create the NSInvocation, which will be used to reverse the delete action if the user later decides to undo a deletion. The NSInvocation needs to know three things: The selector (what message to send), the target (who to send the message to) and the arguments of the message. In this example the message sent is delete’s opposite since when you undo a deletion, you need to add back the deleted album.
+	NSMethodSignature *sig = [self methodSignatureForSelector:@selector(addAlbum:atIndex:)];
+	NSInvocation *undoAction = [NSInvocation invocationWithMethodSignature:sig];
+	[undoAction setTarget:self];
+	[undoAction setSelector:@selector(addAlbum:atIndex:)];
+	[undoAction setArgument:&deletedAlbum atIndex:2];
+	[undoAction setArgument:&currentAlbumIndex atIndex:3];
+	[undoAction retainArguments];
+	
+	/*	IMPORTANT
+	 
+	Note: With NSInvocation, you need to keep the following points in mind:
+	
+	The arguments must be passed by pointer.
+	The arguments start at index 2; indices 0 and 1 are reserved for the target and the selector.
+	If there’s a chance that the arguments will be deallocated, then you should call retainArguments.
+	*/
+
+	
+	
+ 
+	// 3 After the undoAction has been created you add it to the undoStack. This action will be added to the end of the array, just as in a normal stack.
+	[undoStack addObject:undoAction];
+ 
+	// 4 Use LibraryAPI to delete the album from the data structure and reload the scroller.
+	[[LibraryAPI sharedInstance] deleteAlbumAtIndex:currentAlbumIndex];
+	[self reloadScroller];
+ 
+	// 5 Since there’s an action in the undo stack, you need to enable the undo button.
+	[toolbar.items[0] setEnabled:YES];
+}
+
+- (void)undoAction{
+	if (undoStack.count > 0){
+		NSInvocation *undoAction = [undoStack lastObject];
+		[undoStack removeLastObject];
+		[undoAction invoke];
+	}
+ 
+	if (undoStack.count == 0){
+		[toolbar.items[0] setEnabled:NO];
+	}
 }
 
 @end

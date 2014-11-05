@@ -22,7 +22,7 @@
 	if (self) {
 		NSData *data = [NSData dataWithContentsOfFile:[NSHomeDirectory() stringByAppendingString:@"/Documents/albums.bin"]];
 		albums = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-		if (albums == nil){
+		if (albums == nil || albums.count==0){
 		// a dummy list of albums
 			albums = [NSMutableArray arrayWithArray:
 							@[[[Album alloc] initWithTitle:@"Best of Bowie"
