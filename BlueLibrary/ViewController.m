@@ -124,6 +124,7 @@
 	// When the user leaves the app and then comes back again, he wants it to be in the exact same state he left it. In order to do this we need to save the currently displayed album.
 	// Since it's only one piece of information we can use NSUserDefaults.
 	[[NSUserDefaults standardUserDefaults] setInteger:currentAlbumIndex forKey:@"currentAlbumIndex"];
+  [[LibraryAPI sharedInstance] saveAlbums];
 }
 
 - (void)loadPreviousState{

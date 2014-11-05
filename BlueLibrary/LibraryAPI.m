@@ -90,4 +90,8 @@
 		}
 }
 
+- (void)saveAlbums{
+	[persistencyManager saveAlbums];
+}
+
 @end
