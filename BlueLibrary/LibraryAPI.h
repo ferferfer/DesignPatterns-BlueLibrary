@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Album.h"
 
 @interface LibraryAPI : NSObject
 

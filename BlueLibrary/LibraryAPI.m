@@ -7,7 +7,6 @@
 //
 
 #import "LibraryAPI.h"
-#import "Album.h"
 #import "PersistencyManager.h"
 #import "HTTPClient.h"
 
