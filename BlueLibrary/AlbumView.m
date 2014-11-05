@@ -29,6 +29,7 @@
 		[self addSubview:indicator];
 		//KVO
     [coverImage addObserver:self forKeyPath:@"image" options:0 context:nil];
+																						//image property of coverImage
 		//NSNotificationCenter
 		[[NSNotificationCenter defaultCenter] postNotificationName:@"BLDownloadImageNotification"
 																												object:self
