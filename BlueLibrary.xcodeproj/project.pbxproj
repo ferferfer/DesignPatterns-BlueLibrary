@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3F475A701A0A18B3000B0080 /* Album.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F475A6F1A0A18B3000B0080 /* Album.m */; };
 		3F475A731A0A195F000B0080 /* AlbumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F475A721A0A195F000B0080 /* AlbumView.m */; };
+		3F475A791A0A214C000B0080 /* LibraryAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F475A781A0A214C000B0080 /* LibraryAPI.m */; };
+		3F475A7C1A0A2402000B0080 /* PersistencyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F475A7B1A0A2402000B0080 /* PersistencyManager.m */; };
 		450EECC017A9B03A00957F62 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450EECBF17A9B03A00957F62 /* UIKit.framework */; };
 		450EECC217A9B03A00957F62 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450EECC117A9B03A00957F62 /* Foundation.framework */; };
 		450EECC417A9B03A00957F62 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450EECC317A9B03A00957F62 /* CoreGraphics.framework */; };
@@ -27,6 +29,10 @@
 		3F475A6F1A0A18B3000B0080 /* Album.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Album.m; sourceTree = "<group>"; };
 		3F475A711A0A195F000B0080 /* AlbumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumView.h; sourceTree = "<group>"; };
 		3F475A721A0A195F000B0080 /* AlbumView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumView.m; sourceTree = "<group>"; };
+		3F475A771A0A214C000B0080 /* LibraryAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryAPI.h; sourceTree = "<group>"; };
+		3F475A781A0A214C000B0080 /* LibraryAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryAPI.m; sourceTree = "<group>"; };
+		3F475A7A1A0A2402000B0080 /* PersistencyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersistencyManager.h; sourceTree = "<group>"; };
+		3F475A7B1A0A2402000B0080 /* PersistencyManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersistencyManager.m; sourceTree = "<group>"; };
 		450EECBC17A9B03A00957F62 /* BlueLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		450EECBF17A9B03A00957F62 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		450EECC117A9B03A00957F62 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -147,6 +153,10 @@
 			children = (
 				450EECE317A9B05E00957F62 /* HTTPClient.h */,
 				450EECE417A9B05E00957F62 /* HTTPClient.m */,
+				3F475A771A0A214C000B0080 /* LibraryAPI.h */,
+				3F475A781A0A214C000B0080 /* LibraryAPI.m */,
+				3F475A7A1A0A2402000B0080 /* PersistencyManager.h */,
+				3F475A7B1A0A2402000B0080 /* PersistencyManager.m */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -219,6 +229,8 @@
 				450EECCC17A9B03A00957F62 /* main.m in Sources */,
 				450EECD017A9B03A00957F62 /* AppDelegate.m in Sources */,
 				3F475A731A0A195F000B0080 /* AlbumView.m in Sources */,
+				3F475A7C1A0A2402000B0080 /* PersistencyManager.m in Sources */,
+				3F475A791A0A214C000B0080 /* LibraryAPI.m in Sources */,
 				450EECD917A9B03A00957F62 /* ViewController.m in Sources */,
 				3F475A701A0A18B3000B0080 /* Album.m in Sources */,
 				450EECE517A9B05E00957F62 /* HTTPClient.m in Sources */,
