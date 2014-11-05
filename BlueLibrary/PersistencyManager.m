@@ -13,6 +13,8 @@
 	NSMutableArray *albums;
 }
 
+@end
+
 @implementation PersistencyManager
 
 -(id)init{
